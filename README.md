@@ -69,9 +69,10 @@ dist/                      Build çıktısı (git'e eklenmez)
 
 ## Görseller ve gizlilik
 
-- Klinik ve çalışan fotoğraflarının kamuya açık kullanım izni **henüz teyit edilmemiştir**. Repoda aynı dosya adlarıyla **yer tutucu** görseller bulunur; orijinaller `private/photos/` klasöründedir ve git'e eklenmez.
-- Yerel sunum için gerçek fotoğraflarla build: `pwsh -File build.ps1 -WithClientPhotos` (bu çıktıyı yayınlamayın).
-- İzinler yazılı olarak alındıktan sonra fotoğraflar `public/assets/img/` altına aynı adlarla konabilir.
+- Fotoğraf kullanımı [src/data/photos.json](src/data/photos.json) ile yönetilir:
+  - `publicApproved`: markanın yeni web sitesi ve herkese açık önizleme için onay verdiği fotoğraflar (12 hekim, çalışan ve klinik fotoğrafı). Gerçek dosyalar `public/assets/img/` altındadır.
+  - `restricted`: gerekli izin teyit edilene kadar hiçbir build'de kullanılmaz (çocukların bulunduğu nefes eğitimi fotoğrafı; yerinde yer tutucu vardır).
+- Orijinal dosyalar ayrıca `private/photos/` klasöründe durur ve git'e eklenmez. `-WithClientPhotos` yalnızca yerelde, kısıtlı olmayan fotoğrafları kopyalar.
 - Müşteri belgeleri (`*.docx`, `*.pdf` vb.) `.gitignore` ile hariç tutulur; brief **repoya eklenmemelidir.**
 - Randevu formu hiçbir sisteme bağlı değildir; veri göndermez ve saklamaz.
 

@@ -28,6 +28,8 @@
   --gutter: clamp(20px, 4.2vw, 56px);
   --section: clamp(88px, 11vw, 168px);
   --header-h: 84px;
+  /* Native ratio of the clinic portraits (600x616): frames never crop the photos. */
+  --portrait-ratio: 600 / 616;
 
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
@@ -478,7 +480,7 @@ body.nav-open { overflow: hidden; }
 .portrait { margin: 0; position: relative; }
 .portrait__frame {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: var(--portrait-ratio);
   overflow: hidden;
   background: #151515;
   border-radius: 2px;
@@ -610,7 +612,7 @@ body.nav-open { overflow: hidden; }
 .doctor-cards { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 64px); max-width: 940px; margin-left: auto; }
 .doctor-card { display: grid; grid-template-columns: minmax(0, 1fr); }
 .doctor-card:nth-child(2) { margin-top: clamp(0px, 8vw, 120px); }
-.doctor-card .portrait__frame { aspect-ratio: 5 / 6; background: #121212; }
+.doctor-card .portrait__frame { aspect-ratio: var(--portrait-ratio); background: #121212; }
 .doctor-card__body {
   display: flex;
   justify-content: space-between;
@@ -987,7 +989,7 @@ body.nav-open { overflow: hidden; }
 .doctor-feature__text { grid-column: 7 / span 6; }
 .doctor-feature--alt .doctor-feature__img { grid-column: 8 / span 5; order: 2; }
 .doctor-feature--alt .doctor-feature__text { grid-column: 1 / span 6; order: 1; }
-.doctor-feature .portrait__frame { aspect-ratio: 5 / 6; }
+.doctor-feature .portrait__frame { aspect-ratio: var(--portrait-ratio); }
 .doctor-feature__text .title { margin-bottom: 10px; }
 .doctor-feature__role { font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sky-deep); font-weight: 600; margin-bottom: 32px; display: block; }
 .doctor-feature__text p { max-width: 34em; }
@@ -1015,7 +1017,7 @@ body.nav-open { overflow: hidden; }
   gap: clamp(28px, 3vw, 44px) clamp(16px, 2.4vw, 32px);
 }
 .member { margin: 0; }
-.member .portrait__frame { aspect-ratio: 4 / 5; }
+.member .portrait__frame { aspect-ratio: var(--portrait-ratio); }
 .member figcaption { margin-top: 14px; }
 .member__name { display: block; font-family: var(--serif); font-size: 1.35rem; color: var(--ink); line-height: 1.2; }
 .member__role { display: block; font-size: 13.5px; color: var(--muted); margin-top: 2px; }

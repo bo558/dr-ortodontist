@@ -1,0 +1,7 @@
+{
+  "_restricted": "Never used in any build until the required consent is confirmed (e.g. photos showing children need parental consent).",
+  "restricted": ["nefes-egitimi"],
+
+  "_publicApproved": "Photos the client has confirmed for PUBLIC use. Their real files must be placed in public/assets/img/ (replacing the placeholder). Everything else stays a placeholder in public builds.",
+  "publicApproved": ["berrin-usta", "mustafa-usta", "gizem-nur-donmez", "pelin-dinctorna", "aleyna-altug", "arife-bilbay", "ceren-altun", "cansu-erdogan", "sehri-coban", "klinik-karsilama", "klinik-ekip", "muayene"]
+}

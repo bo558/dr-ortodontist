@@ -22,8 +22,10 @@
                     Preview builds never emit a canonical link or structured data, so they
                     claim no relationship with the live domain.
   -WithClientPhotos Copy the client's photos from private/photos/ (git-ignored) over the
-                    placeholders. For local presentations only - photo usage rights for
-                    public publishing have not been confirmed.
+                    placeholders. For local presentations only.
+                    src/data/photos.json controls photo usage:
+                      restricted     - never used (e.g. children without parental consent)
+                      publicApproved - client-confirmed for public use; real file lives in public/assets/img/
 
   Examples:
     pwsh -File build.ps1
@@ -61,13 +63,27 @@ $SiteUrl = $SiteUrl.Trim().TrimEnd('/')
 if ($SiteUrl -and $SiteUrl -notmatch '^https://[A-Za-z0-9.-]+(/[A-Za-z0-9._~-]+)*$') { throw "Invalid -SiteUrl '$SiteUrl'. Expected e.g. https://user.github.io/dr-ortodontist" }
 if ($isProduction -and $SiteUrl) { throw "-SiteUrl is for preview builds only; production always uses $site." }
 
-# Client photos whose public usage rights are not confirmed. The repository ships placeholders
-# under the same file names; the originals live in private/photos/ (git-ignored).
+# Client photos. Unless approved for public use (src/data/photos.json), the repository ships
+# placeholders under the same file names; the originals live in private/photos/ (git-ignored).
 $clientPhotos = @('berrin-usta', 'mustafa-usta', 'gizem-nur-donmez', 'pelin-dinctorna', 'aleyna-altug',
   'arife-bilbay', 'ceren-altun', 'cansu-erdogan', 'sehri-coban',
   'klinik-karsilama', 'klinik-ekip', 'nefes-egitimi', 'muayene')
 $placeholderAlt = 'Yer tutucu g&#246;rsel: onayl&#305; foto&#287;raf eklenecek'   # HTML entities keep this file ASCII-only
-$placeholderNote = ' G&#246;rseller yer tutucudur.'
+
+$photoPolicy = [IO.File]::ReadAllText([IO.Path]::Combine($root, 'src', 'data', 'photos.json'), [Text.Encoding]::UTF8) | ConvertFrom-Json
+$restricted = @($photoPolicy.restricted)
+$approved = @($photoPolicy.publicApproved)
+foreach ($n in $restricted + $approved) { if ($clientPhotos -notcontains $n) { throw "photos.json: unknown photo '$n'" } }
+foreach ($n in $approved) { if ($restricted -contains $n) { throw "photos.json: '$n' is both restricted and publicApproved" } }
+
+# Photos that are real (not placeholders) in this build.
+$realPhotos = @($clientPhotos | Where-Object {
+  ($restricted -notcontains $_) -and (($approved -contains $_) -or
+    ($WithClientPhotos -and (Test-Path -LiteralPath ([IO.Path]::Combine($root, 'private', 'photos', "$_.jpg")))))
+})
+$placeholderPhotos = @($clientPhotos | Where-Object { $realPhotos -notcontains $_ })
+$placeholderNote = if ($placeholderPhotos.Count -eq $clientPhotos.Count) { ' G&#246;rseller yer tutucudur.' }
+  elseif ($placeholderPhotos.Count -gt 0) { ' Baz&#305; g&#246;rseller yer tutucudur.' } else { '' }
 
 function Read-Text([string]$path) { [IO.File]::ReadAllText($path, [Text.Encoding]::UTF8) }
 function Write-Text([string]$path, [string]$text) {
@@ -104,8 +120,12 @@ Write-Text (Join-Parts $out '.nojekyll') ''   # GitHub Pages: serve files as-is
 if ($WithClientPhotos) {
   $private = Join-Parts $root 'private' 'photos'
   if (-not (Test-Path -LiteralPath $private)) { throw "-WithClientPhotos: $private not found." }
-  Get-ChildItem -LiteralPath $private -File | Copy-Item -Destination (Join-Parts $out 'assets' 'img') -Force
+  # Copy only the photos that may be used; restricted ones keep their placeholder.
+  Get-ChildItem -LiteralPath $private -File |
+    Where-Object { $realPhotos -contains [IO.Path]::GetFileNameWithoutExtension($_.Name) } |
+    Copy-Item -Destination (Join-Parts $out 'assets' 'img') -Force
 }
+Write-Host ("Photos: {0} real, {1} placeholder ({2})" -f $realPhotos.Count, $placeholderPhotos.Count, ($placeholderPhotos -join ', '))
 
 # ---------- Shared fragments ----------
 $layout  = Read-Text (Join-Parts $src 'layout.html')
@@ -115,11 +135,13 @@ $cta     = Read-Text (Join-Parts $src 'partials' 'cta.html')
 $tTpl    = Read-Text (Join-Parts $src 'partials' 'treatment.html')
 $orgJson = (Read-Text (Join-Parts $src 'data' 'organization.jsonld')).Replace('{{SITE}}', $site)
 $previewNotice = if ($isProduction) { '' } else {
-  (Read-Text (Join-Parts $src 'partials' 'preview-notice.html')).Replace('{{PH_NOTE}}', $(if ($WithClientPhotos) { '' } else { $placeholderNote }))
+  (Read-Text (Join-Parts $src 'partials' 'preview-notice.html')).Replace('{{PH_NOTE}}', $placeholderNote)
 }
 
 # Placeholder images get an honest alt text instead of the person/scene description.
-$photoPattern = '<img\b[^>]*\bsrc="/assets/img/(?:' + ($clientPhotos -join '|') + ')\.(?:jpg|webp)"[^>]*>'
+$photoPattern = if ($placeholderPhotos.Count -gt 0) {
+  '<img\b[^>]*\bsrc="/assets/img/(?:' + ($placeholderPhotos -join '|') + ')\.(?:jpg|webp)"[^>]*>'
+} else { $null }
 $altEvaluator = [Text.RegularExpressions.MatchEvaluator]{
   param($m)
   $tag = $m.Value
@@ -220,7 +242,7 @@ function Render([hashtable]$p) {
   })
   $left = [regex]::Matches($html, '\{\{[^}]+\}\}')
   if ($left.Count -gt 0) { throw "Unresolved token(s) in $($p.Path): $(($left | ForEach-Object Value) -join ', ')" }
-  if (-not $WithClientPhotos) { $html = [regex]::Replace($html, $photoPattern, $altEvaluator) }
+  if ($photoPattern) { $html = [regex]::Replace($html, $photoPattern, $altEvaluator) }
   $html = Apply-BasePath $html
 
   $relative = $p.Path.TrimStart('/')
