@@ -130,9 +130,10 @@ Write-Text (Join-Parts $out '.nojekyll') ''   # GitHub Pages: serve files as-is
 if ($WithClientPhotos) {
   $private = Join-Parts $root 'private' 'photos'
   if (-not (Test-Path -LiteralPath $private)) { throw "-WithClientPhotos: $private not found." }
-  # Copy only the photos that may be used; restricted ones keep their placeholder.
+  # Copy only the photos that may be used and are not already shipped in public/ (publicApproved
+  # files in public/ are the optimised versions and must not be overwritten).
   Get-ChildItem -LiteralPath $private -File |
-    Where-Object { $realPhotos -contains [IO.Path]::GetFileNameWithoutExtension($_.Name) } |
+    Where-Object { $n = [IO.Path]::GetFileNameWithoutExtension($_.Name); ($realPhotos -contains $n) -and ($approved -notcontains $n) } |
     Copy-Item -Destination (Join-Parts $out 'assets' 'img') -Force
 }
 Write-Host ("Photos: {0} real, {1} placeholder ({2})" -f $realPhotos.Count, $placeholderPhotos.Count, ($placeholderPhotos -join ', '))

@@ -794,6 +794,8 @@ body.nav-open { overflow: hidden; }
 
 .gallery { row-gap: clamp(32px, 5vw, 72px); align-items: start; }
 .shot { margin: 0; }
+/* Never show a photo wider than its native pixel width (--w is set per photo in the markup). */
+.shot[style*="--w"] { max-width: var(--w); }
 .shot__frame { overflow: hidden; border-radius: 2px; background: var(--mist); }
 .shot__frame img {
   width: 100%;
