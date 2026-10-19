@@ -1,0 +1,53 @@
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Sayfa konumu">
+          <ol>
+            <li><a href="/">Ana Sayfa</a></li>
+            <li><a href="/tedaviler/">Tedaviler</a></li>
+            <li><span aria-current="page">{{T_TITLE}}</span></li>
+          </ol>
+        </nav>
+        <div class="grid-12 page-hero__grid">
+          <div class="page-hero__title" data-reveal>
+            <p class="eyebrow"><b>{{T_CATEGORY}}</b></p>
+            <h1 class="display">{{T_TITLE}}</h1>
+          </div>
+          <div class="page-hero__aside" data-reveal style="--d:.12s">
+            <p class="lead">{{T_LEAD}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid-12 article">
+          <aside class="article__aside" aria-label="Sayfa içeriği">
+            <nav class="toc" aria-label="Bu sayfada">
+              <span class="toc__label">Bu sayfada</span>
+              <ol>
+{{T_TOC}}
+              </ol>
+            </nav>
+            <div class="aside-card">
+              <h2>Bir değerlendirme planlayın</h2>
+              <p>Size uygun yöntem muayene sonrasında, hekiminizle birlikte belirlenir.</p>
+              <a class="btn btn--sm" href="/randevu/">Randevu talebi {{I_ARROW}}</a>
+              <a class="tel" href="tel:+902163608181">0216 360 81 81</a>
+            </div>
+          </aside>
+
+          <article class="article__body prose">
+{{T_BODY}}
+            <p class="note">Bu sayfa genel bilgilendirme amaçlıdır. Tedavinin uygunluğu, yöntemi ve süresi kişiye göre değişir; yalnızca hekim muayenesi ve gerekli incelemeler sonrasında belirlenir.</p>
+
+            <div class="related">
+              <div class="t-group__label"><span>Diğer tedaviler</span></div>
+{{T_RELATED}}
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+{{> cta}}

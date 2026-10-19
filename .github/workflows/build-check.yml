@@ -1,0 +1,54 @@
+# Build verification only: builds the site on Windows, macOS and Linux and checks the output.
+# Nothing is deployed or published by this workflow.
+name: Build check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build (production)
+        run: |
+          ./build.ps1 -Mode production
+          if (-not (Test-Path dist/sitemap.xml)) { throw 'sitemap.xml missing' }
+          if ((Select-String -Path dist/index.html -Pattern 'content="index, follow"' -SimpleMatch -Quiet) -ne $true) { throw 'production page should be indexable' }
+
+      - name: Build (preview, GitHub Pages sub-directory)
+        run: |
+          ./build.ps1 -BasePath /dr-ortodontist/ -SiteUrl https://example.github.io/dr-ortodontist
+          if (Test-Path dist/sitemap.xml) { throw 'preview must not ship a sitemap' }
+          $pages = Get-ChildItem dist -Recurse -Filter *.html
+          if ($pages.Count -ne 17) { throw "expected 17 pages, got $($pages.Count)" }
+          foreach ($p in $pages) {
+            $html = Get-Content $p.FullName -Raw
+            if ($html -notmatch 'content="noindex, nofollow"') { throw "missing noindex: $($p.FullName)" }
+            if ($html -match 'rel="canonical"') { throw "preview must not declare a canonical URL: $($p.FullName)" }
+            if ($html -match '\s(href|src|srcset|action)="/(?!/|dr-ortodontist/)') { throw "un-prefixed root path in $($p.FullName)" }
+          }
+          if (-not (Select-String -Path dist/index.html -Pattern 'Yer tutucu g' -SimpleMatch -Quiet)) { throw 'placeholder alt text missing' }
+
+  build-windows-powershell-51:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with Windows PowerShell 5.1
+        run: ./build.ps1 -Mode production

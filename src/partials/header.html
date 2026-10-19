@@ -1,0 +1,55 @@
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/" aria-label="Dr. Ortodontist — Ana sayfa">
+        {{LOGO_MARK}}
+        <span class="brand__word">Dr.<span>ORTODONTİST</span></span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Ana menü">
+        <ul>
+          <li><a href="/hakkimizda/"{{ACTIVE:hakkimizda}}>Klinik</a></li>
+          <li><a href="/hekimlerimiz/"{{ACTIVE:hekimlerimiz}}>Hekimlerimiz</a></li>
+          <li><a href="/tedaviler/"{{ACTIVE:tedaviler}}>Tedaviler</a></li>
+          <li><a href="/sss/"{{ACTIVE:sss}}>Sık Sorulanlar</a></li>
+          <li><a href="/iletisim/"{{ACTIVE:iletisim}}>İletişim</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a class="header-phone" href="tel:+902163608181"><small>Klinik hattı</small>0216 360 81 81</a>
+        <a class="btn btn--sm" href="/randevu/">Randevu Talebi {{I_ARROW}}</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav">
+          <span></span><span></span>
+          <span class="visually-hidden">Menüyü aç</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Menü" aria-hidden="true" inert>
+    <div class="mobile-nav__top">
+      <a class="brand" href="/" aria-label="Dr. Ortodontist — Ana sayfa">
+        {{LOGO_MARK}}
+        <span class="brand__word">Dr.<span>ORTODONTİST</span></span>
+      </a>
+      <button class="mobile-nav__close" type="button" data-nav-close>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <span class="visually-hidden">Menüyü kapat</span>
+      </button>
+    </div>
+    <ul>
+      <li><a href="/"{{ACTIVE:home}}>Ana Sayfa {{I_ARROW}}</a></li>
+      <li><a href="/hakkimizda/"{{ACTIVE:hakkimizda}}>Klinik {{I_ARROW}}</a></li>
+      <li><a href="/hekimlerimiz/"{{ACTIVE:hekimlerimiz}}>Hekimlerimiz {{I_ARROW}}</a></li>
+      <li><a href="/tedaviler/"{{ACTIVE:tedaviler}}>Tedaviler {{I_ARROW}}</a></li>
+      <li><a href="/sss/"{{ACTIVE:sss}}>Sık Sorulanlar {{I_ARROW}}</a></li>
+      <li><a href="/iletisim/"{{ACTIVE:iletisim}}>İletişim {{I_ARROW}}</a></li>
+    </ul>
+    <div class="mobile-nav__foot">
+      <a class="btn btn--light" href="/randevu/">Randevu Talebi {{I_ARROW}}</a>
+      <p class="mobile-nav__contact">
+        <a href="tel:+902163608181">0216 360 81 81</a> · <a href="https://wa.me/905309266424" rel="noopener">WhatsApp</a><br>
+        Sahrayıcedit Mah., Kadıköy — İstanbul
+      </p>
+    </div>
+  </div>

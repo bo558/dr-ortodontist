@@ -1,0 +1,42 @@
+# ---------------------------------------------------------------
+# Client documents - NEVER commit (briefs contain personal contact
+# details and commercial terms).
+# ---------------------------------------------------------------
+*.docx
+*.doc
+*.dotx
+*.xlsx
+*.xls
+*.pptx
+*.pdf
+*.odt
+~$*
+brief/
+client/
+private/
+
+# Build output (regenerate with build.ps1)
+dist/
+
+# Secrets / local configuration
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+secrets.*
+
+# Logs & temporary files
+*.log
+*.tmp
+*.bak
+.cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp

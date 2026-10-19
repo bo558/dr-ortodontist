@@ -1,0 +1,33 @@
+{
+  "categories": [
+    {
+      "id": "ortodonti",
+      "label": "Ortodontik tedavi",
+      "title": "Diş ve çene <em>dizilimi</em>",
+      "intro": "Çocukluktan yetişkinliğe, diş ve çene dizilimine yönelik tedaviler. Yöntem; yaşa, diş ve çene yapısına ve günlük yaşam beklentilerine göre birlikte seçilir."
+    },
+    {
+      "id": "fonksiyon",
+      "label": "Fonksiyon ve nefes",
+      "title": "Nefes ve <em>kas dengesi</em>",
+      "intro": "Ağız solunumu, dil konumu ve yutkunma gibi fonksiyonlar; çene gelişimini ve tedavinin kalıcılığını etkileyebilir. Bu alandaki çalışmalar ortodontik tedaviyi destekler."
+    },
+    {
+      "id": "cene-uyku",
+      "label": "Çene eklemi ve uyku",
+      "title": "Çene eklemi ve <em>uyku</em>",
+      "intro": "Çene eklemi rahatsızlıkları, diş sıkma ve horlama gibi şikâyetlerin değerlendirilmesi ve uygun hastalarda kişiye özel apareylerle tedavi planlaması."
+    }
+  ],
+  "items": [
+    { "slug": "cocuklarda-ortodonti", "title": "Çocuklarda Ortodonti", "short": "Erken değerlendirme ile çene gelişimini ve alışkanlıkları zamanında takip etmek.", "category": "ortodonti" },
+    { "slug": "yetiskinlerde-ortodonti", "title": "Yetişkinlerde Ortodonti", "short": "Yaşa değil, diş ve çene yapısına göre planlanan tedavi.", "category": "ortodonti" },
+    { "slug": "seffaf-plaklarla-tedavi", "title": "Şeffaf Plak Tedavisi", "short": "Çıkarılabilir, şeffaf plaklarla aşamalı diş hareketi.", "category": "ortodonti" },
+    { "slug": "lingual-ortodonti-gorunmez-dis-telleri", "title": "Lingual Ortodonti", "short": "Dişlerin iç yüzeyine yerleştirilen, dışarıdan görünmeyen braketler.", "category": "ortodonti" },
+    { "slug": "ortodonti-ve-myofonksiyonel-terapi", "title": "Myofonksiyonel Terapi", "short": "Ağız ve yüz kaslarını egzersiz ve apareylerle destekleyen yaklaşım.", "category": "fonksiyon" },
+    { "slug": "nefes-egitimi-ve-ortodonti", "title": "Nefes Eğitimi", "short": "Burun solunumunu ve doğru nefes alışkanlığını destekleyen çalışmalar.", "category": "fonksiyon" },
+    { "slug": "cene-eklemi-tedavisi", "title": "Çene Eklemi Tedavisi", "short": "Çenede ağrı, ses ve kilitlenme şikâyetlerinin değerlendirilmesi.", "category": "cene-uyku" },
+    { "slug": "dis-sikma-ve-gicirdatma-tedavisi", "title": "Diş Sıkma ve Gıcırdatma", "short": "Bruksizme bağlı aşınma ve gerginliğe karşı kişiye özel koruma.", "category": "cene-uyku" },
+    { "slug": "horlama-ve-uyku-apnesi-tedavisi", "title": "Horlama ve Uyku Apnesi", "short": "Uygun hastalarda ağız içi apareylerle tedavi planlaması.", "category": "cene-uyku" }
+  ]
+}

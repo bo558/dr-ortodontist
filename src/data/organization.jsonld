@@ -1,0 +1,24 @@
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "Dr. Ortodontist",
+    "url": "{{SITE}}/",
+    "logo": "{{SITE}}/assets/img/logo-dr-ortodontist.png",
+    "image": "{{SITE}}/assets/img/og-image.jpg",
+    "telephone": "+90 216 360 81 81",
+    "email": "info@drortodontist.com.tr",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Sahrayıcedit Mah. Halk Sok. No: 35, Golden Plaza F Blok, Kat: 3 D: 7",
+      "addressLocality": "Kadıköy",
+      "addressRegion": "İstanbul",
+      "addressCountry": "TR"
+    },
+    "sameAs": [
+      "https://www.instagram.com/dr.ortodontist/",
+      "https://www.facebook.com/drortodontist",
+      "https://www.youtube.com/channel/UCCOdCszbbOkP6NXaQK3oJnw"
+    ]
+  }
+  </script>

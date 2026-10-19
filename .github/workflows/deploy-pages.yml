@@ -1,0 +1,60 @@
+# Builds the PREVIEW (noindex, placeholder images, no canonical) and deploys it to GitHub Pages.
+# The live clinic domain is never touched by this workflow.
+name: Deploy preview to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build preview for /<repo>/
+        run: |
+          $repo  = '${{ github.event.repository.name }}'
+          $owner = '${{ github.repository_owner }}'.ToLower()
+          ./build.ps1 -Mode preview -BasePath "/$repo/" -SiteUrl "https://$owner.github.io/$repo"
+
+      - name: Verify preview safety
+        run: |
+          $repo = '${{ github.event.repository.name }}'
+          if (Test-Path dist/sitemap.xml) { throw 'preview must not ship a sitemap' }
+          foreach ($p in Get-ChildItem dist -Recurse -Filter *.html) {
+            $html = Get-Content $p.FullName -Raw
+            if ($html -notmatch 'content="noindex, nofollow"') { throw "missing noindex: $($p.FullName)" }
+            if ($html -match 'rel="canonical"') { throw "preview must not declare a canonical URL: $($p.FullName)" }
+            if ($html -match 'application/ld\+json') { throw "preview must not ship structured data: $($p.FullName)" }
+            if ($html -match "\s(href|src|srcset|action)=`"/(?!/|$repo/)") { throw "un-prefixed root path: $($p.FullName)" }
+          }
+          Write-Host 'Preview safety checks passed.'
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

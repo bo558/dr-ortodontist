@@ -1,0 +1,16 @@
+# Normalise text files to LF in the repository; scripts run on Windows, macOS and Linux.
+* text=auto eol=lf
+
+*.ps1     text eol=lf
+*.html    text eol=lf
+*.css     text eol=lf
+*.js      text eol=lf
+*.json    text eol=lf
+*.jsonld  text eol=lf
+*.md      text eol=lf
+
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.webp    binary
+*.ico     binary

@@ -1,0 +1,98 @@
+<!--META {"path":"/randevu/","title":"Randevu Talebi","description":"Dr. Ortodontist'ten muayene randevusu talep edin ya da 0216 360 81 81 numaralı hattan bize ulaşın.","nav":"randevu","bodyClass":"page-appointment","breadcrumb":"Randevu Talebi"} -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Sayfa konumu">
+          <ol>
+            <li><a href="/">Ana Sayfa</a></li>
+            <li><span aria-current="page">Randevu Talebi</span></li>
+          </ol>
+        </nav>
+        <div class="grid-12 page-hero__grid">
+          <div class="page-hero__title" data-reveal>
+            <p class="eyebrow"><b>Randevu</b> Muayene talebi</p>
+            <h1 class="display">Sizi <em>tanımak</em> için bir zaman belirleyelim.</h1>
+          </div>
+          <div class="page-hero__aside" data-reveal style="--d:.12s">
+            <p class="lead">Talebinizi bırakın; ekibimiz sizi arayarak uygun gün ve saati birlikte netleştirsin.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid-12 form-layout">
+          <div class="form-layout__form" data-reveal>
+            <div class="notice" role="note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+              <span><strong>Tasarım önizlemesi:</strong> Bu form henüz herhangi bir sisteme bağlı değildir. Gönderdiğinizde hiçbir bilgi kaydedilmez veya iletilmez. Randevu için lütfen 0216 360 81 81 numaralı hattı arayın.</span>
+            </div>
+
+            <form class="form" data-preview-form novalidate>
+              <div class="field">
+                <label for="f-name">Ad Soyad</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="Adınız ve soyadınız">
+              </div>
+              <div class="field">
+                <label for="f-phone">Telefon</label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="05xx xxx xx xx">
+              </div>
+
+              <fieldset class="field field--full">
+                <legend>Randevu konusu</legend>
+                <div class="chips">
+                  <label class="chip"><input type="radio" name="topic" value="ilk-muayene" checked><span>İlk muayene</span></label>
+                  <label class="chip"><input type="radio" name="topic" value="kontrol"><span>Mevcut tedavi / kontrol</span></label>
+                  <label class="chip"><input type="radio" name="topic" value="bilgi"><span>Bilgi almak istiyorum</span></label>
+                </div>
+              </fieldset>
+
+              <fieldset class="field field--full">
+                <legend>Randevu kimin için?</legend>
+                <div class="chips">
+                  <label class="chip"><input type="radio" name="who" value="cocuk"><span>Çocuk</span></label>
+                  <label class="chip"><input type="radio" name="who" value="genc"><span>Genç</span></label>
+                  <label class="chip"><input type="radio" name="who" value="yetiskin" checked><span>Yetişkin</span></label>
+                </div>
+              </fieldset>
+
+              <div class="field field--full">
+                <label for="f-time">Size ulaşmamız için uygun zaman</label>
+                <select id="f-time" name="time">
+                  <option>Fark etmez</option>
+                  <option>Sabah</option>
+                  <option>Öğleden sonra</option>
+                </select>
+              </div>
+
+              <div class="field--full">
+                <label class="consent">
+                  <input type="checkbox" name="consent" required>
+                  <span>Kişisel verilerimin randevu talebimin yanıtlanması amacıyla işlenmesine ilişkin <a class="text-link" href="#" aria-disabled="true">KVKK Aydınlatma Metni</a>'ni okudum.</span>
+                </label>
+              </div>
+
+              <div class="form__actions">
+                <button class="btn" type="submit">Talebi gönder {{I_ARROW}}</button>
+                <span class="small muted">Sağlık bilgisi paylaşmanıza gerek yoktur; ayrıntılar muayenede konuşulur.</span>
+              </div>
+
+              <div class="form__status" role="status" tabindex="-1">Önizleme modu: Form gönderimi devre dışıdır. Girdiğiniz bilgiler kaydedilmedi, iletilmedi ve form temizlendi.</div>
+            </form>
+          </div>
+
+          <aside class="form-layout__aside" data-reveal style="--d:.12s">
+            <div class="direct-card">
+              <h2>Hemen konuşmak ister misiniz?</h2>
+              <p>Klinik hattımızdan veya WhatsApp üzerinden ekibimize doğrudan ulaşabilirsiniz.</p>
+              <a class="btn btn--light" href="tel:+902163608181">0216 360 81 81</a>
+              <a class="btn btn--ghost-light" href="https://wa.me/905309266424" rel="noopener" target="_blank">WhatsApp ile yazın</a>
+            </div>
+            <div class="info-item">
+              <span class="info-item__label">Adres</span>
+              <address>Golden Plaza F Blok, Kat: 3 D: 7<br>Sahrayıcedit, Kadıköy / İstanbul</address>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>

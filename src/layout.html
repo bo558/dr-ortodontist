@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+{{CANONICAL_TAG}}
+  <meta name="theme-color" content="#0c2d3d">
+  <meta name="robots" content="{{ROBOTS}}">
+
+  <meta property="og:type" content="{{OG_TYPE}}">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:site_name" content="Dr. Ortodontist">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{DESCRIPTION}}">
+  <meta property="og:url" content="{{PUBLIC_URL}}">
+  <meta property="og:image" content="{{PUBLIC_ORIGIN}}/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script>document.documentElement.classList.add("js");</script>
+{{JSONLD}}
+</head>
+<body class="{{BODYCLASS}}">
+  <a class="skip-link" href="#main">İçeriğe geç</a>
+{{HEADER}}
+{{PREVIEW_NOTICE}}
+  <main id="main">
+{{CONTENT}}
+  </main>
+{{FOOTER}}
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>
