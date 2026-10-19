@@ -41,7 +41,8 @@ jobs:
             if ($html -match 'rel="canonical"') { throw "preview must not declare a canonical URL: $($p.FullName)" }
             if ($html -match '\s(href|src|srcset|action)="/(?!/|dr-ortodontist/)') { throw "un-prefixed root path in $($p.FullName)" }
           }
-          if (-not (Select-String -Path dist/index.html -Pattern 'Yer tutucu g' -SimpleMatch -Quiet)) { throw 'placeholder alt text missing' }
+          if (-not (Select-String -Path dist/index.html -Pattern '<img ' -SimpleMatch -Quiet)) { throw 'home page has no images' }
+          foreach ($p in $pages) { if ((Get-Content $p.FullName -Raw) -match '<img\b(?![^>]*\balt=)[^>]*>') { throw "img without alt: $($p.FullName)" } }
 
   build-windows-powershell-51:
     runs-on: windows-latest

@@ -39,7 +39,10 @@ param(
   [string]$Mode = 'preview',
   [string]$BasePath = '/',
   [string]$SiteUrl = '',
-  [switch]$WithClientPhotos
+  [switch]$WithClientPhotos,
+  # LOCAL review only: also use "restricted" photos from private/photos/ (e.g. pending consent).
+  # Rejected for production and public preview (-SiteUrl) builds.
+  [switch]$IncludeRestrictedPhotos
 )
 
 $ErrorActionPreference = 'Stop'
@@ -76,10 +79,17 @@ $approved = @($photoPolicy.publicApproved)
 foreach ($n in $restricted + $approved) { if ($clientPhotos -notcontains $n) { throw "photos.json: unknown photo '$n'" } }
 foreach ($n in $approved) { if ($restricted -contains $n) { throw "photos.json: '$n' is both restricted and publicApproved" } }
 
+if ($IncludeRestrictedPhotos) {
+  if (-not $WithClientPhotos) { throw "-IncludeRestrictedPhotos requires -WithClientPhotos." }
+  if ($isProduction -or $SiteUrl) { throw "-IncludeRestrictedPhotos is for local review only; it cannot be combined with -Mode production or -SiteUrl." }
+  Write-Warning "Local review build: restricted photos included. Do not publish this dist/ output."
+}
+
 # Photos that are real (not placeholders) in this build.
 $realPhotos = @($clientPhotos | Where-Object {
-  ($restricted -notcontains $_) -and (($approved -contains $_) -or
-    ($WithClientPhotos -and (Test-Path -LiteralPath ([IO.Path]::Combine($root, 'private', 'photos', "$_.jpg")))))
+  $hasPrivate = $WithClientPhotos -and (Test-Path -LiteralPath ([IO.Path]::Combine($root, 'private', 'photos', "$_.jpg")))
+  if ($restricted -contains $_) { $IncludeRestrictedPhotos -and $hasPrivate }
+  else { ($approved -contains $_) -or $hasPrivate }
 })
 $placeholderPhotos = @($clientPhotos | Where-Object { $realPhotos -notcontains $_ })
 $placeholderNote = if ($placeholderPhotos.Count -eq $clientPhotos.Count) { ' G&#246;rseller yer tutucudur.' }

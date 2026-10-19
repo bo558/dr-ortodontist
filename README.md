@@ -70,8 +70,9 @@ dist/                      Build çıktısı (git'e eklenmez)
 ## Görseller ve gizlilik
 
 - Fotoğraf kullanımı [src/data/photos.json](src/data/photos.json) ile yönetilir:
-  - `publicApproved`: markanın yeni web sitesi ve herkese açık önizleme için onay verdiği fotoğraflar (12 hekim, çalışan ve klinik fotoğrafı). Gerçek dosyalar `public/assets/img/` altındadır.
-  - `restricted`: gerekli izin teyit edilene kadar hiçbir build'de kullanılmaz (çocukların bulunduğu nefes eğitimi fotoğrafı; yerinde yer tutucu vardır).
+  - `publicApproved`: markanın yeni web sitesi ve herkese açık önizleme için onay verdiği fotoğraflar (13 hekim, çalışan ve klinik fotoğrafı; nefes eğitimi fotoğrafı için yayın izni müşteri tarafından teyit edildi). Gerçek dosyalar `public/assets/img/` altındadır.
+  - `restricted`: gerekli izin teyit edilene kadar hiçbir build'de kullanılmaz; yerinde yer tutucu gösterilir. Şu an boş.
+  - `-WithClientPhotos -IncludeRestrictedPhotos`: kısıtlı fotoğrafları yalnızca yerel incelemede gösterir; Pages ve production build'lerinde reddedilir.
 - Orijinal dosyalar ayrıca `private/photos/` klasöründe durur ve git'e eklenmez. `-WithClientPhotos` yalnızca yerelde, kısıtlı olmayan fotoğrafları kopyalar.
 - Müşteri belgeleri (`*.docx`, `*.pdf` vb.) `.gitignore` ile hariç tutulur; brief **repoya eklenmemelidir.**
 - Randevu formu hiçbir sisteme bağlı değildir; veri göndermez ve saklamaz.
